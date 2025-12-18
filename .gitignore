@@ -7,7 +7,7 @@ python-3.12.9-amd64/Include/
 python-3.12.9-amd64/libs/*.pyd
 
 # Ignorer les autres dossiers sensibles
-models/*.gguf
+models/mistralai/*.gguf
 *.pyc
 __pycache__/
 .DS_Store
