@@ -7,7 +7,7 @@ Oui mais voilà !
 Imaginez que des personnes mals avisées espionnent tout ce que vous écrivez dans l'IA
 
 WTF?!  
-Comment faire pour continuer à utiliser son IA préférée en toute confidentialité quand des pirates, des man-in-the-middle, des intégristes, des terroristes ou l'Etat, l'Europe, les Russes, les Chinois, les Américains vous surveillent ?    
+Comment faire pour continuer à utiliser son IA préférée en toute confidentialité quand des pirates, des men-in-the-middle, des intégristes, des terroristes, l'Etat, l'Europe, les Russes, les Chinois, les Américains vous surveillent ?    
 
 Vous ne connaissez rien aux conteneurs, à docker, les machines virtuelles et vous ne voulez pas vous embêter avec tout ce charabia ?
 
