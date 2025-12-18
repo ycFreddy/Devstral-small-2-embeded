@@ -10,7 +10,7 @@ def launch_llama_server(server, url, modelgguf, modelmmproj):
 
     # Lancer le serveur dans un processus séparé
     process = subprocess.Popen(
-        [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "65536", "--batch_size", "1", "-t", "0.125"],
+        [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "16384", "--batch_size", "1", "-t", "0.125"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
