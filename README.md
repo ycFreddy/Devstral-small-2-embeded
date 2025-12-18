@@ -53,7 +53,7 @@ Une fois les modèles téléchargés, vous avez tout d'embarqué
 
 :white_check_mark: Vous conversez avec l'IA de Mistral du texte, des pdf, des images en toute confidentialité et sans la nécessité d'une connexion internet  
 :white_check_mark: Vous avez le controle sur vos fils de votre discussion  
-:white_check_mark: Portabilité est complète, vous pouvez transférer le dossier sur une clef usb, par exemple, utile pour avoir son IA partout, in the pocket !
+:white_check_mark: Portabilité complète, vous pouvez transférer le dossier sur une clef usb, par exemple, utile pour avoir son IA partout, in the pocket !
 
 ## Note
 
