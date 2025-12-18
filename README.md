@@ -9,7 +9,7 @@ Imaginez que des personnes mals avisées espionnent tout ce que vous écrivez da
 WTF?!  
 Comment faire pour continuer à utiliser son IA préférée en toute confidentialité quand des pirates, des man-in-the-middle, des intégristes, des terroristes ou l'Etat, l'Europe, les Russes, les Chinois, les Américains vous surveillent ?    
 
-Vous ne connaissez rien aux conteneurs, à Docker, les machines virtuelles et vous ne voulez pas vous embêter avec tout ce charabia ?
+Vous ne connaissez rien aux conteneurs, à docker, les machines virtuelles et vous ne voulez pas vous embêter avec tout ce charabia ?
 
 La Solution est là !  
 La Solution c'est Devstral-small-2 in the pocket !
