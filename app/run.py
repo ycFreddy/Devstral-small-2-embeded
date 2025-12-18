@@ -116,14 +116,14 @@ def main():
         return
 
     # Lancement du serveur
-    '''process = launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
+    process = launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
     if process:
         print("Serveur en cours d'exécution (PID:", process.pid, ")")
         try:
             process.wait()  # Attendre la fin du processus
         except KeyboardInterrupt:
             print("Arrêt du serveur...")
-            process.terminate()'''
+            process.terminate()
 
 if __name__ == "__main__":
     main()
