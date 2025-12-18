@@ -49,9 +49,13 @@ def check_files_exist(model_gguf_path: str, model_mmproj_path: str) -> Dict[str,
 
     if not results['GGUF_model_exists']:
         handle_error(FileNotFoundError(f"Modèle GGUF introuvable: {model_gguf_path}"), "la vérification des modèles")
+    else:
+        print(" * Modèle gguf -> OK")
     if not results['MMPROJ_model_exists']:
-        handle_error(FileNotFoundError(f"Modèle MMPROJ introuvable: {model_mmproj_path}"), "la vérification des modèles")
-
+        handle_error(FileNotFoundError(f"Modèle MMPROJ introuvable: {model_mmproj_path}"), "la vérification des modèles")        
+    else:
+        print(" * Modèle mmproj -> OK")
+    
     return results
 
 def launch_llama_server(server: str, url: str, modelgguf: str, modelmmproj: str) -> Optional[subprocess.Popen]:
@@ -112,14 +116,14 @@ def main():
         return
 
     # Lancement du serveur
-    process = launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
+    '''process = launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
     if process:
         print("Serveur en cours d'exécution (PID:", process.pid, ")")
         try:
             process.wait()  # Attendre la fin du processus
         except KeyboardInterrupt:
             print("Arrêt du serveur...")
-            process.terminate()
+            process.terminate()'''
 
 if __name__ == "__main__":
     main()
