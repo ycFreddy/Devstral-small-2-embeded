@@ -37,7 +37,7 @@ On emberque tout ça d'un coup et sans installation !
     
     
 2. **On télécharge les modèles .gguf que l'on souhaite sans oublier le .mmproj et on les mets dans le dossier   
-    "*/models/mistraai"*** :        
+    "*/models/mistralai"*** :        
     - :file_folder: [Devstral-small-2-gguf](https://huggingface.co/unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF/tree/main "Devstral-small-2")  
     *(personnellement j'utilise "Devstral-Small-2-24B-Instruct-2512-UD-IQ3_XXS.gguf")*
     - :clipboard: Indiquez les noms de vos modèles dans "*config.txt*"
