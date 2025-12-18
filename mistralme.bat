@@ -6,5 +6,5 @@ if %errorlevel% neq 0 (
     echo Erreur lors de l'exécution
 )
 echo ---
-echo Fermer la fenêtre pour Quitter
+echo Fermer la fenêtre pour éteindre le serveur
 pause >nul
