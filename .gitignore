@@ -1,0 +1,13 @@
+python-3.12.9-amd64/Lib/site-packages/*.pyc
+python-3.12.9-amd64/Lib/site-packages/__pycache__/
+python-3.12.9-amd64/Library/cache/
+python-3.12.9-amd64/tcl/
+python-3.12.9-amd64/DLLs/
+python-3.12.9-amd64/Include/
+python-3.12.9-amd64/libs/*.pyd
+
+# Ignorer les autres dossiers sensibles
+models/*.gguf
+*.pyc
+__pycache__/
+.DS_Store
