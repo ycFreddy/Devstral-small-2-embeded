@@ -27,7 +27,7 @@
     "hidden_size": 5120,
     "initializer_range": 0.02,
     "intermediate_size": 32768,
-    "max_position_embeddings": 393216,
+    "max_position_embeddings": 131072,
     "model_type": "ministral3",
     "num_attention_heads": 32,
     "num_hidden_layers": 40,

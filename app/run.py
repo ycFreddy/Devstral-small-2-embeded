@@ -2,6 +2,7 @@ import subprocess
 import requests
 import webbrowser
 import time
+import os
 
 
 def launch_llama_server(server, url, modelgguf, modelmmproj):
@@ -9,7 +10,7 @@ def launch_llama_server(server, url, modelgguf, modelmmproj):
 
     # Lancer le serveur dans un processus séparé
     process = subprocess.Popen(
-        [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "16384", "--batch_size", "8", "-t", "0.125"],
+        [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "65536", "--batch_size", "2", "-t", "0.25"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
@@ -37,7 +38,7 @@ def launch_llama_server(server, url, modelgguf, modelmmproj):
     return None
 
 def load_config_from_file(file_path):
-    print(" Chargement des modèles..")
+    print(" Chargement de la configuration..")
     config = {}
 
     try:
@@ -53,12 +54,21 @@ def load_config_from_file(file_path):
                     key = key.strip()
                     value = value.strip().strip('"\'')  # Enlever les guillemets
                     config[key] = value
-            print(" * Modèles chargés")
+            print(" * Configuration chargée")
 
     except FileNotFoundError:
         raise FileNotFoundError(f"Fichier config non trouvé: {file_path}")
 
     return config
+
+def check_files_exist(model_gguf_path, model_mmproj_path):
+    print(" Chargement des modèles..")
+    results = {
+        'GGUF_model_exists': os.path.exists(model_gguf_path),
+        'MMPROJ_model_exists': os.path.exists(model_mmproj_path),
+        'all_exist': os.path.exists(model_gguf_path) and os.path.exists(model_mmproj_path)
+    }
+    return results
 
 if __name__ == "__main__":
     SERVER = "llama\\llama-server.exe" 
@@ -69,5 +79,19 @@ if __name__ == "__main__":
         MODEL_MMPROJ = f"models\\mistralai\\{config.get('MODEL_MMPROJ')}"
     except Exception as e:
         print(f"Erreur lors du chargement de la configuration: {e}")
+
+    results = check_files_exist(MODEL_GGUF, MODEL_MMPROJ)
+    if results['GGUF_model_exists'] == True:
+        print(" * GGUF model => Ok")
+    else:
+        print(" x Le modèle n'a pas été trouvé")
+    if results['MMPROJ_model_exists'] == True:
+        print(" * MMPROJ model => Ok")
+    else:
+        print(" x Le modèle n'a pas été trouvé")
+    if results['MMPROJ_model_exists'] == True:
+        print(" * Modèles chargés")
+    else:
+        print(" x Le modèle n'a pas été trouvé")
     
     launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
