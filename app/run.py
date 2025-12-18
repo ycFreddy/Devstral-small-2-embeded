@@ -10,7 +10,7 @@ def launch_llama_server(server, url, modelgguf, modelmmproj):
 
     # Lancer le serveur dans un processus séparé
     process = subprocess.Popen(
-        [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "65536", "--batch_size", "2", "-t", "0.25"],
+        [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "65536", "--batch_size", "1", "-t", "0.125"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         print(" x Le modèle n'a pas été trouvé")
     if results['MMPROJ_model_exists'] == True:
         print(" * Modèles chargés")
+        launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
     else:
-        print(" x Le modèle n'a pas été trouvé")
+        print(" x Le modèle n'a pas été trouvé")    
     
-    launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
