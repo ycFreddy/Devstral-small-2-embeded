@@ -7,7 +7,7 @@ Oui mais voilà !
 Imaginez que des personnes mals avisées espionnent tout ce que vous écrivez dans l'IA
 
 WTF?!  
-Comment faire pour continuer à utiliser son IA préférée en toute confidentialité quand des pirates, des men-in-the-middle, des intégristes, des terroristes, l'Etat, l'Europe, les Russes, les Chinois, les Anglais, les Américains vous surveillent ?    
+Comment faire pour continuer à utiliser son IA préférée en toute confidentialité quand des pirates, des men-in-the-middle, des intégristes, des terroristes, l'Etat, l'Europe, les Russes, les Chinois, les Anglais, les Allemands, les Américains vous surveillent ?    
 
 Vous ne connaissez rien aux conteneurs, à docker, les machines virtuelles et vous ne voulez pas vous embêter avec tout ce charabia ?
 
@@ -15,13 +15,13 @@ La Solution est là !
 La Solution c'est Devstral-small-2 in the pocket !
 
 Comment ça marche ?  
-C'est simple, en emberque tout dans la poche !
+C'est simple, en embarque tout dans la poche !
 
 - [Devstral-small-2](https://huggingface.co/unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF/tree/main "Devstral-small-2")
 - [llama.cpp](https://github.com/ggml-org/llama.cpp "llama.cpp")
 - [Python](https://www.python.org/ "Python")
 
-On emberque tout ça d'un coup et sans installation !
+On embarque tout ça d'un coup et sans installation !
 
 ## 📸 Illustration
 
@@ -53,4 +53,9 @@ Une fois les modèles téléchargés, vous avez tout d'embarqué
 
 :white_check_mark: Vous conversez avec l'IA de Mistral du texte, des pdf, des images en toute confidentialité et sans la nécessité d'une connexion internet  
 :white_check_mark: Vous avez le controle sur vos fils de votre discussion  
-:white_check_mark: La portabilité est complète, vous pouvez transférer le dossier sur une clef usb, par exemple, utile pour avoir son IA partout, in the pocket !
+:white_check_mark: Portabilité est complète, vous pouvez transférer le dossier sur une clef usb, par exemple, utile pour avoir son IA partout, in the pocket !
+
+## Note
+
+    - Fonctionne sous windows
+    - GPU Nvidia recommandé
