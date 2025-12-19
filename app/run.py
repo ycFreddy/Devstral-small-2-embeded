@@ -64,8 +64,7 @@ def launch_llama_server(server: str, url: str, modelgguf: str, modelmmproj: str)
 
     try:
         # Lancer le serveur dans un processus séparé
-        process = subprocess.Popen(
-            [server, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "16384", "--batch_size", "1", "-t", "0.125"],
+        process = subprocess.Popen([server, "--host", "0.0.0.0", "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "16384", "--threads", "8", "--batch_size", "4", "-t", "0.125"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
@@ -99,7 +98,8 @@ def launch_llama_server(server: str, url: str, modelgguf: str, modelmmproj: str)
 
 def main():
     SERVER = "llama\\llama-server.exe"
-    URL = "http://localhost:8080"
+    URL = "http://127.0.0.1:8080"
+    PORT = "8080"
     MODEL_BASE = f"models\\mistralai"
 
     # Chargement de la configuration
