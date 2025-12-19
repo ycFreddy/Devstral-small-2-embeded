@@ -59,4 +59,4 @@ Une fois les modèles téléchargés, vous avez tout d'embarqué
 ## Note
 
   - Fonctionne sous windows
-  - GPU Nvidia avec [CUDA Tollkit 3.1](https://developer.nvidia.com/cuda-toolkit-31-downloads "CUDA") recommandé
+  - GPU Nvidia avec [CUDA Tollkit 13.1](https://developer.nvidia.com/cuda-13-1-0-download-archive "CUDA") recommandé
