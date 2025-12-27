@@ -40,7 +40,6 @@ On embarque tout ça d'un coup et sans installation !
     "*/models/mistralai"*** :        
     - :file_folder: [Devstral-small-2-gguf](https://huggingface.co/unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF/tree/main "Devstral-small-2")  
     *(personnellement j'utilise "Devstral-Small-2-24B-Instruct-2512-UD-IQ3_XXS.gguf")*
-    - :clipboard: Indiquez les noms de vos modèles dans "*config.txt*"
 
 3. **On lance le programme et son IA préfèrée est là, prête à l'emploi** :  
     - 🖥️ *mistralme.bat*  
