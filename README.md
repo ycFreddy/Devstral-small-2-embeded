@@ -43,7 +43,7 @@ On embarque tout ça d'un coup et sans installation !
 
 3. **On lance le programme et son IA préfèrée est là, prête à l'emploi** :  
     - 🖥️ *mistralme.bat*  
-     ![Devstral-small-2-embeded](default1.png)
+     ![Devstral-small-2-embeded](default1.png)  
     *Les fainéants n'ont rien d'autre à faire et ça c'est cool !*
 
 ## Fonctionalités
