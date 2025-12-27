@@ -4,72 +4,44 @@ import webbrowser
 import time
 import os
 from typing import Optional, Dict, Any
+from rich.theme import Theme
+from rich.console import Console
 
-def handle_error(error: Exception, context: str = "") -> None:
-    """Gère les erreurs de manière centralisée avec un message contextualisé."""
+def handle_error(error: Exception, context: str = "") -> None:    
     error_msg = f"Erreur dans {context}: {str(error)}"
-    print(f"❌ {error_msg}")
+    display.print(f"[bright_red]❌ {error_msg}")
 
-def load_config_from_file(file_path: str) -> Dict[str, str]:
-    """Charge la configuration depuis un fichier."""
-    print(" Chargement de la configuration..")
-    config = {}
+def display_prompt(ai=None, mmproj=None) -> None:    
+    if ai:
+        display.print("IA sélectionnée")
+        display.print(f"[bright_yellow on bright_magenta] * {ai}")
+    if mmproj:
+        display.print("Multi modal projection sélectionné")
+        display.print(f"[bright_yellow on bright_magenta] * {mmproj}")
 
+def get_user_selection(prompt: str, options: list[str]) -> int:    
+    display.print(prompt)
+    while True:        
+        for i, option in enumerate(options, 1):
+            display.print(f"{i}. [bright_yellow]{option}")
+        try:
+            choice = display.input("Entrez le numéro de votre choix: ")
+            idx = int(choice) - 1
+            if 0 <= idx < len(options):
+                os.system("cls")
+                return idx
+            else:
+                display.print(f"Veuillez entrer un nombre entre 1 et {len(options)}")
+        except ValueError:
+            display.print("Veuillez entrer un nombre valide")
+
+def launch_llama_server(server: str, url: str, port: str, modelgguf: str, modelmmproj: str) -> Optional[subprocess.Popen]:    
+    display.print("Lancement de llama-serveur...")
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            for line in file:
-                line = line.strip()
-                # Ignorer les lignes vides ou les commentaires
-                if not line or line.startswith('#'):
-                    continue
-                # Diviser en clé et valeur
-                if '=' in line:
-                    key, value = line.split('=', 1)
-                    key = key.strip()
-                    value = value.strip().strip('"\'')  # Enlever les guillemets
-                    config[key] = value
-        print(" * Configuration chargée")
-        return config
-
-    except FileNotFoundError as e:
-        handle_error(e, "le chargement de la configuration")
-        return {}
-    except Exception as e:
-        handle_error(e, "le chargement de la configuration")
-        return {}
-
-def check_files_exist(model_gguf_path: str, model_mmproj_path: str) -> Dict[str, bool]:
-    """Vérifie l'existence des fichiers de modèle."""
-    print(" Vérification des modèles..")
-    results = {
-        'GGUF_model_exists': os.path.exists(model_gguf_path),
-        'MMPROJ_model_exists': os.path.exists(model_mmproj_path),
-        'all_exist': os.path.exists(model_gguf_path) and os.path.exists(model_mmproj_path)
-    }
-
-    if not results['GGUF_model_exists']:
-        handle_error(FileNotFoundError(f"Modèle GGUF introuvable: {model_gguf_path}"), "la vérification des modèles")
-    else:
-        print(" * Modèle gguf -> OK")
-    if not results['MMPROJ_model_exists']:
-        handle_error(FileNotFoundError(f"Modèle MMPROJ introuvable: {model_mmproj_path}"), "la vérification des modèles")        
-    else:
-        print(" * Modèle mmproj -> OK")
-    
-    return results
-
-def launch_llama_server(server: str, url: str, modelgguf: str, modelmmproj: str) -> Optional[subprocess.Popen]:
-    """Lance le serveur Llama avec gestion des erreurs."""
-    print(" Lancement de llama-serveur..")
-
-    try:
-        # Lancer le serveur dans un processus séparé
-        process = subprocess.Popen([server, "--host", "0.0.0.0", "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "16384", "--threads", "8", "--batch_size", "4", "-t", "0.125"],
+        process = subprocess.Popen([server, "--host", "0.0.0.0", "--port", port, "--model", modelgguf, "--mmproj", modelmmproj, "--ctx_size", "16384", "--threads", "8", "--batch_size", "4", "-t", "0.125"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
-
-        # Attendre que le serveur soit prêt (jusqu'à 30 secondes max)
         max_retries = 30
         retry_delay = 1
         for _ in range(max_retries):
@@ -78,52 +50,55 @@ def launch_llama_server(server: str, url: str, modelgguf: str, modelmmproj: str)
                 response = requests.get(url, timeout=5)
                 response.raise_for_status()
                 webbrowser.open(url)
-                print(" * Serveur lancé")
+                display.print("[bright_yellow on bright_magenta] * Serveur lancé")
                 return process
-
             except requests.exceptions.RequestException as e:
                 continue
-
-        # Si on arrive ici, le serveur n'a pas répondu à temps
-        handle_error(Exception("Serveur non répondant après 30 secondes"), "le démarrage du serveur")
+        handle_error(e)
         process.terminate()
-        stdout, stderr = process.communicate()
-        print("Sortie standard :", stdout.decode() if stdout else "Aucune sortie")
-        print("Erreurs :", stderr.decode() if stderr else "Aucune erreur")
+        process.wait()
         return None
 
     except Exception as e:
-        handle_error(e, "le lancement du serveur")
+        process.terminate()
+        process.wait()
+        handle_error(e)
         return None
 
-def main():
-    SERVER = "llama\\llama-server.exe"
-    URL = "http://127.0.0.1:8080"
-    PORT = "8080"
+if __name__ == "__main__":
+    SERVER_PATH = "llama\\llama-server.exe"
+    PORT = "8080"    
+    URL = f"http://127.0.0.1:{PORT}"
     MODEL_BASE = f"models\\mistralai"
 
-    # Chargement de la configuration
-    config = load_config_from_file("config.txt")
-    if not config:
-        return
-
-    MODEL_GGUF = f"{MODEL_BASE}\\{config.get('MODEL_GGUF')}"
-    MODEL_MMPROJ = f"{MODEL_BASE}\\{config.get('MODEL_MMPROJ')}"
-
-    # Vérification des modèles
-    results = check_files_exist(MODEL_GGUF, MODEL_MMPROJ)
-    if not results['all_exist']:
-        return
-
-    # Lancement du serveur
-    process = launch_llama_server(SERVER, URL, MODEL_GGUF, MODEL_MMPROJ)
-    if process:
-        print("Serveur en cours d'exécution (PID:", process.pid, ")")
-        try:
-            process.wait()  # Attendre la fin du processus
-        except KeyboardInterrupt:
-            print("Arrêt du serveur...")
-            process.terminate()
-
-if __name__ == "__main__":
-    main()
+    display = Console(
+        style="bright_cyan",
+        force_terminal=True,
+        color_system="truecolor",
+        legacy_windows=True
+    )
+    files = [file for file in os.listdir(MODEL_BASE) if file.endswith('.gguf')]
+    if not files:
+        display.print("Aucun fichier trouvé. Quiting.")
+    else:
+        # Sélection des fichiers
+        gguf_idx = get_user_selection("Sélectionnez une IA:", files)
+        model_gguf = files[gguf_idx]
+        display_prompt(files[gguf_idx])
+        files_copy = files[:]
+        files_copy.remove(model_gguf)
+        if gguf_idx == len(files) - 1:
+            gguf_idx = len(files_copy) - 1
+        mmproj_idx = get_user_selection("Sélectionnez un multi modal projection (mmproj):", files_copy)
+        model_mmproj = files_copy[mmproj_idx]
+        display_prompt(files[gguf_idx], files_copy[mmproj_idx])
+        MODEL_GGUF = f'{MODEL_BASE}\\{model_gguf}'
+        MODEL_MMPROJ = f'{MODEL_BASE}\\{model_mmproj}'
+        # Lancement du serveur
+        process = launch_llama_server(SERVER_PATH, URL, PORT, MODEL_GGUF, MODEL_MMPROJ)
+        if process:
+            display.print(f"[bright_cyan]Serveur en cours d'exécution (PID:{process.pid})")
+            try:
+                process.wait()
+            except KeyboardInterrupt:
+                process.terminate()
